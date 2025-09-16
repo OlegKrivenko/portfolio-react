@@ -1,0 +1,30 @@
+.btn-outline {
+  display: inline-flex;
+  column-gap: 10px;
+  align-items: center;
+  background-color: #fff;
+
+  padding: 12px 20px;
+
+  border: 1px solid var(--blackpure);
+  border-radius: 5px;
+  color: var(--blackpure);
+  box-shadow: var(--box-shadow-btn-githb-repo);
+
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.5;
+  letter-spacing: 0.15px;
+
+  transition: opacity 0.2s ease-in;
+}
+.btn-outline:hover {
+  opacity: 0.8;
+}
+.btn-outline:active {
+  position: relative;
+  top: 1px;
+}
+.btn-outline__icon {
+  width: 24px;
+}
