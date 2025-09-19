@@ -2,11 +2,13 @@ import './style.css';
 import sun from './sun.svg';
 import moon from './moon.svg';
 import { useEffect, useRef } from 'react';
-import { useLocalStorage } from 'utils/useLocalStorage';
+import { useLocalStorage } from '../../utils/useLocalStorage';
+import detectDarkMode from '../../utils/detectDarkMode';
 
 const ButtonDarkMode = () => {
   // const [darkMode, setDarkMode] = useState('light');
-  const [darkMode, setDarkMode] = useLocalStorage('darkMode', 'light');
+  // const [darkMode, setDarkMode] = useLocalStorage('darkMode', 'light');
+  const [darkMode, setDarkMode] = useLocalStorage('darkMode', detectDarkMode());
 
   const btnRef = useRef(null);
 
@@ -19,6 +21,17 @@ const ButtonDarkMode = () => {
       btnRef.current.classList.remove('dark-mode-btn--active');
     }
   }, [darkMode]);
+
+  // Слушаем переключение системной темы в опереционной системе пользователя (если пользователь не выбрал вручную)
+  // За сутки на компе тема в зависимости от времени может меняться
+  useEffect(() => {
+    window
+      .matchMedia('(prefers-color-scheme: dark)')
+      .addEventListener('change', event => {
+        const newColorScheme = event.matches ? 'dark' : 'light';
+        setDarkMode(newColorScheme);
+      });
+  }, [setDarkMode]);
 
   const toggleDarkMode = () => {
     setDarkMode(prev => (prev === 'light' ? 'dark' : 'light'));
